@@ -1,5 +1,4 @@
 import type { CollectionConfig } from 'payload'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -16,8 +15,34 @@ export const Posts: CollectionConfig = {
       required: true,
     },
     {
+      name: 'slug',
+      type: 'text',
+      required: true,
+      unique: true,
+      hooks: {
+        beforeValidate: [
+          ({ data }) => {
+            if (data?.title && !data?.slug) {
+              return {
+                ...data,
+                slug: data.title
+                  .toLowerCase()
+                  .replace(/\s+/g, '-')
+                  .replace(/[^a-z0-9\-]/g, ''),
+              }
+            }
+            return data
+          },
+        ],
+      },
+    },
+    {
+      name: 'description',
+      type: 'textarea',
+    },
+    {
       name: 'body',
-      type: 'richText',
+      type: 'textarea',
     },
   ],
 }
