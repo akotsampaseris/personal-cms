@@ -19,22 +19,11 @@ export const Posts: CollectionConfig = {
       type: 'text',
       required: true,
       unique: true,
-      hooks: {
-        beforeValidate: [
-          ({ data }) => {
-            if (data?.title && !data?.slug) {
-              return {
-                ...data,
-                slug: data.title
-                  .toLowerCase()
-                  .replace(/\s+/g, '-')
-                  .replace(/[^a-z0-9\-]/g, ''),
-              }
-            }
-            return data
-          },
-        ],
-      },
+    },
+    {
+      name: 'category',
+      type: 'relationship',
+      relationTo: 'post-categories',
     },
     {
       name: 'description',
