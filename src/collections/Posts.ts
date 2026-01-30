@@ -30,6 +30,10 @@ export const Posts: CollectionConfig = {
       type: 'textarea',
     },
     {
+      name: 'publishedAt',
+      type: 'date'
+    },
+    {
       name: 'body',
       type: 'richText',
     },
