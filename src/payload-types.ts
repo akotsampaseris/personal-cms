@@ -165,7 +165,22 @@ export interface Post {
   slug: string;
   category?: (number | null) | PostCategory;
   description?: string | null;
-  body?: string | null;
+  publishedAt?: string | null;
+  body?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -310,6 +325,7 @@ export interface PostsSelect<T extends boolean = true> {
   slug?: T;
   category?: T;
   description?: T;
+  publishedAt?: T;
   body?: T;
   updatedAt?: T;
   createdAt?: T;
