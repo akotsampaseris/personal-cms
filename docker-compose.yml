@@ -2,18 +2,13 @@ version: '3'
 
 services:
   payload:
-    image: node:22.12.0-alpine
+    build:
+      context: .
+      dockerfile: Dockerfile
     volumes:
-      - .:/home/node/app
-      - node_modules:/home/node/app/node_modules
-    working_dir: /home/node/app/
-    command: sh -c "corepack enable && corepack prepare pnpm@latest --activate && pnpm install --frozen-lockfile && pnpm build && pnpm start"
+      - ./media:/app/media
+      - ./cms.db:/cms.db
     env_file:
       - .env
     ports:
       - '${PORT}:${PORT}'
-
-volumes:
-  data:
-  # pgdata:
-  node_modules:
