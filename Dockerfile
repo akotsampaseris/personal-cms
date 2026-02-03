@@ -25,7 +25,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 RUN npm install -g pnpm@9.15.9
-RUN pnpm build;
+RUN pnpm run build;
 
 # Production image, copy all the files and run next
 FROM base AS runner
@@ -50,7 +50,7 @@ RUN chown nextjs:nodejs .next
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-USER nextjs
+# USER nextjs
 
 EXPOSE ${PORT}
 

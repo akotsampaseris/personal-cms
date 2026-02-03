@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./media:/app/media
-      - ./cms.db:/cms.db
+      - ./cms.db:/app/cms.db
     env_file:
       - .env
     ports:
